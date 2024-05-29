@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nycschools.app.R
@@ -13,6 +14,7 @@ import com.nycschools.app.databinding.ActivitySchInNycBinding
 import com.nycschools.app.databinding.ItemViewBinding
 import com.nycschools.app.model.ApiResponse
 import com.nycschools.app.ui.satNyc.SatNycActivity
+import com.nycschools.app.util.DiffUtils
 
 class SchInNycActivity : AppCompatActivity(), SchInNycAdapter.ItemClickLister {
     private lateinit var binding : ActivitySchInNycBinding
@@ -63,7 +65,7 @@ class SchInNycAdapter constructor(private val itemClickLister: ItemClickLister) 
         fun onClickItem(dbn : String?)
     }
 
-    var list: List<ApiResponse> = emptyList()
+    private var list : List<ApiResponse> = emptyList()
 
     override fun getItemCount(): Int {
         return list.size
@@ -83,7 +85,9 @@ class SchInNycAdapter constructor(private val itemClickLister: ItemClickLister) 
     }
 
     fun updateList(it: List<ApiResponse>) {
+        val diffCallback = DiffUtils(this.list, it)
+        val diffCourses = DiffUtil.calculateDiff(diffCallback)
         this.list = it
-        notifyDataSetChanged()
+        diffCourses.dispatchUpdatesTo(this)
     }
 }
