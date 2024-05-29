@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SATapp</string>
+    <string name="math_avg_score">Math Avg\nScore</string>
+    <string name="reading_avg_score">Reading Avg\nScore</string>
+    <string name="writing_avg_score">Writing Avg\nScore</string>
+    <string name="total">Number of SAT\nTakers</string>
+</resources>
